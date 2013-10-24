@@ -35,6 +35,7 @@ var setPlugin = function(root) {
 	MIDI.stopAllNotes = root.stopAllNotes;
 	MIDI.getInput = root.getInput;
 	MIDI.getOutputs = root.getOutputs;
+	MIDI.setReverbImpulseResponse = root.setReverbImpulseResponse;
 };
 
 /*
@@ -130,6 +131,7 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		api: "webaudio"
 	};
 	var ctx;
+	var convolver;
 	var sources = {};
 	var masterVolume = 127;
 	var audioBuffers = {};
@@ -171,6 +173,27 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		MIDI.channels[channel].instrument = program;
 	};
 
+	root.setReverbImpulseResponse = function(url) {
+		// Load impulse response asynchronously
+		var request = new XMLHttpRequest();
+		request.open("GET", url, true);
+		request.responseType = "arraybuffer";
+
+		request.onload = function() {
+			ctx.decodeAudioData(
+				request.response,
+				function(buffer) {
+					convolver.buffer = buffer;
+				},
+
+				function(buffer) {
+					console.log("Error decoding impulse response!");
+				}
+			);
+		}
+		request.send();
+	};
+
 	root.noteOn = function (channel, note, velocity, delay) {
 		/// check whether the note exists
 		if (!MIDI.channels[channel]) return;
@@ -182,7 +205,9 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		var source = ctx.createBufferSource();
 		sources[channel + "" + note] = source;
 		source.buffer = audioBuffers[instrument + "" + note];
-		source.connect(ctx.destination);
+
+		source.connect(convolver);
+		convolver.connect(ctx.destination);
 		///
 		var gainNode = ctx.createGainNode();
 		var value = (velocity / 127) * (masterVolume / 127) * 2 - 1;
@@ -227,6 +252,7 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		setPlugin(root);
 		//
 		MIDI.Player.ctx = ctx = new AudioContext();
+		convolver = ctx.createConvolver();
 		///
 		var urlList = [];
 		var keyToNote = MIDI.keyToNote;

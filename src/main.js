@@ -22,7 +22,7 @@ $(document).ready(function(){
 				MIDI.noteOff(0, note+12, delay + 5);
 			});
 
-			MIDI.setImpulseResponse('../ir/spatialized7.wav');
+			MIDI.setReverbImpulseResponse('./ir/spatialized7.wav');
 
 			function playNote(data) {
 				MIDI.noteOn(0, data.note, data.velocity, data.delay);
