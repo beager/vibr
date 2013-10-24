@@ -3,13 +3,36 @@ $(document).ready(function(){
 		soundfontUrl: "./soundfont/",
 		instrument: "acoustic_grand_piano",
 		callback: function() {
-			var delay = 0; // play one note every quarter second
-			var note = 50; // the MIDI note
-			var velocity = 127; // how hard the note hits
+
 			// play the note
 			MIDI.setVolume(0, 127);
-			MIDI.noteOn(0, note, velocity, delay);
-			MIDI.noteOff(0, note, delay + 0.75);
+			$('#button').click(function(e) {
+							var delay = 0; // play one note every quarter second
+					var note = 50; // the MIDI note
+					var velocity = 127; // how hard the note hits
+
+				console.log('hey');
+				MIDI.noteOn(0, note, velocity, delay);
+				MIDI.noteOn(0, note+4, velocity, delay);
+				MIDI.noteOn(0, note+7, velocity, delay);
+				MIDI.noteOn(0, note+12, velocity, delay);
+				MIDI.noteOff(0, note, delay + 5);
+				MIDI.noteOff(0, note+4, delay + 5);
+				MIDI.noteOff(0, note+7, delay + 5);
+				MIDI.noteOff(0, note+12, delay + 5);
+			});
+
+			MIDI.setImpulseResponse('../ir/spatialized7.wav');
+
+			function playNote(data) {
+				MIDI.noteOn(0, data.note, data.velocity, data.delay);
+				MIDI.noteOff(0, data.note, data.delay + data.duration);
+			}
+
+			window.addEventListener("message", function(event) {
+				playNote(event.data);
+			});
 		}
 	});
+
 });
