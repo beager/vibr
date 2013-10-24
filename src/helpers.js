@@ -189,3 +189,20 @@ var  F10 = 125;
 var Fs10 = 126;
 var Gb10 = 126;
 var  G10 = 127;
+
+var scales = {
+	major: [0, 2, 4, 5, 7, 9, 11],
+	minor: [0, 2, 3, 5, 7, 8, 10],
+	minor_harmonic: [0, 2, 3, 5, 7, 8, 11],
+	minor_melodic: [0, 2, 3, 5, 7, 9, 11],
+	pentatonic: [0, 2, 4, 7, 9]
+};
+
+function get_note_from_scale(id, scale) {
+	var thescale = scales[scale];
+	var mod = thescale.length;
+	var oct = Math.floor(id / mod);
+	var pitch = id % mod;
+
+	return (oct * 12) + thescale[pitch];
+}

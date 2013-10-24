@@ -25,8 +25,10 @@ $(document).ready(function(){
 			MIDI.setReverbImpulseResponse('./ir/spatialized7.wav');
 
 			function playNote(data) {
-				MIDI.noteOn(0, data.note, data.velocity, data.delay);
-				MIDI.noteOff(0, data.note, data.delay + data.duration);
+				var pitch = get_note_from_scale(data.note, 'pentatonic');
+				console.log(pitch);
+				MIDI.noteOn(0, pitch, data.velocity, 0);
+				MIDI.noteOff(0, pitch, data.duration);
 			}
 
 			window.addEventListener("message", function(event) {

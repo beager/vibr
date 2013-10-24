@@ -25,13 +25,19 @@ io.sockets.on('connection', function (socket) {
 		var delay = time - log_time;
 		if (delay < 0 || delay > latency) return;
 
-		var note = Math.floor((Math.random()*36)+36);
+		var note = Math.floor((Math.random()*20)+20);
 		var velocity = Math.floor((Math.random()*36)+36);
-		socket.emit('note', {
-			note: note,
-			velocity: velocity,
-			duration: 5,
-			delay: (delay / 1000)
-		});
+
+		var delay_random = Math.floor(Math.random()*1000);
+
+		console.log('setting timeout for ' + delay);
+
+		setTimeout(function(){
+			socket.emit('note', {
+				note: note,
+				velocity: velocity,
+				duration: 5
+			});
+		}, delay + delay_random);
 	});
 });
