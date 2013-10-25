@@ -213,11 +213,11 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 
 		if (ir) {
 			source.connect(convolver);
-			convolver.connect(compressor);
+			convolver.connect(ctx.destination);
 		} else {
-			source.connect(compressor);
+			source.connect(ctx.destination);
 		}
-		compressor.connect(ctx.destination);
+		//compressor.connect(ctx.destination);
 		///
 		var gainNode = ctx.createGainNode();
 		var value = (velocity / 127) * (masterVolume / 127) * 2 - 1;

@@ -12,7 +12,8 @@ $(document).ready(function(){
 			"taiko_drum",
 			"music_box",
 			"glockenspiel",
-			"cello"
+			"cello",
+			"koto"
 		],
 		callback: function() {
 

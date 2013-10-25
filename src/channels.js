@@ -22,7 +22,7 @@ var channels = {
 				name: 'user_like',
 			}
 		},
-		impulse_response: './ir/matrix-reverb1.wav'
+		impulse_response: './ir/matrix-reverb5.wav'
 	},
 	'splunk_plunk': {
 		name: 'Splunk Plunk',
@@ -32,11 +32,12 @@ var channels = {
 		midi: {
 			0: {
 				name: 'web_errors',
-				scale: 'major',
-				patch: 4
+				scale: 'pentatonic',
+				patch: 107,
+				ir: true
 			}
 		},
-		impulse_response: './ir/cardiod-true-stereo-15-8.wav'
+		impulse_response: './ir/matrix-reverb5.wav'
 	},
 	'user_registration_attempt': {
 		name: 'The Register',
@@ -47,7 +48,8 @@ var channels = {
 			0: {
 				name: 'user_registration_attempt',
 				scale: [0, 2, 4, 7, 9, 11],
-				patch: 4
+				patch: 4,
+				ir: true
 			}
 		},
 		impulse_response: './ir/matrix-reverb6.wav'
@@ -71,13 +73,14 @@ var channels = {
 			0: {
 				name: 'sexy_search',
 				scale: [0, 5, 7, 10],
-				patch: 116
+				patch: 116,
+				ir: true
 			}
 		},
 		impulse_response: './ir/matrix-reverb1.wav'
 	},
 	'sad_derek': {
-		name: '<em>Lacrimosa alla derekg</em> in D minor',
+		name: '<em>La Tristezza di derekg</em> in D minor',
 		description: 'The sadness of unfollowing and deletion brought to life',
 		technical_info: 'Each cello note represents a user who has just deleted their account. Higher notes are older users. Stronger notes are users who were more engaged (following more blogs). The piano chords represent some of the unfollows that happen to blogs.',
 		transpose: 2,
@@ -85,12 +88,14 @@ var channels = {
 			0: {
 				name: 'soft_delete_user',
 				scale: 'harmonic_minor',
-				patch: 42
+				patch: 42,
+				ir: true
 			},
 			1: {
 				name: 'user_unfollow',
 				scale: [0, 3, 7],
-				patch: 0
+				patch: 0,
+				ir: true
 			}
 		},
 		impulse_response: './ir/matrix-reverb5.wav'
