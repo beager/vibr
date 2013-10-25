@@ -8,4 +8,8 @@
   socket.on('js_errors', function (data) {
     window.parent.postMessage(data, "*");
   });
+
+  socket.on('user_registration_attempt', function (data) {
+    window.parent.postMessage(data, "*");
+  });
 </script>
