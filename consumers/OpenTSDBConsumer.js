@@ -10,6 +10,8 @@ function OpenTSDBConsumer(io, options) {
 	this.band_size = options.band_size || 300; // five minute band, smaller is quicker;
 	this.tsdhost = options.tsdhost || 'http://fibr.ewr01.tumblr.net:6081/';
 	this.path = options.path || 'api/query';
+	this.processor = options.processor || false;
+	this.audioConsumer = options.audioConsumer || 'synth_control';
 
 	this.update = function() {
 		var now = new Date().getTime();
@@ -32,10 +34,16 @@ function OpenTSDBConsumer(io, options) {
 			res.on('end', function() {
 				try {
 					var jsonResponse = JSON.parse(body);
+					var data;
+					if (this.processor) {
+						data = this.processor(jsonResponse);
+					} else {
+						data = {};
+					}
 					this.io.sockets.emit(this.eventName, {
 						name: this.eventName,
-						type: 'opentsdb',
-						data: jsonResponse.data
+						type: this.audioConsumer,
+						data: data
 					});
 				} catch (e) {
 					console.log('TSDB failed for ' + this.metric);

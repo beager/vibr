@@ -8,6 +8,12 @@ function GiantOctopusTailConsumer(io, options) {
 	this.randomDelay = options.randomDelay || 1000;
 	this.url = options.url;
 
+	this.minVelocity = options.minVelocity || 0;
+	this.maxVelocity = options.maxVelocity || 127;
+
+	this.minNote = options.minNote || 20;
+	this.maxNote = options.maxNote || 40;
+
 	this.filter = options.filter || false;
 
 	this.tail = new Tail(this.url);
@@ -18,8 +24,6 @@ function GiantOctopusTailConsumer(io, options) {
 		var log_time = linedata[0] * 1000;
 		var delay = time - log_time;
 		if (delay < 0 || delay > this.latency) return;
-		var note = Math.floor((Math.random()*20)+20);
-		var velocity = Math.floor((Math.random()*36)+36);
 		var delay_random = Math.floor(Math.random()*this.randomDelay);
 
 		if (this.filter) {
@@ -27,15 +31,22 @@ function GiantOctopusTailConsumer(io, options) {
 			if (!res) return false;
 		}
 
+		var payload;
+		if (!this.processor) {
+			payload = {
+				note: Math.floor(Math.random()*(this.maxNote - this.minNote))+this.minNote,
+				velocity: Math.floor((Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity),
+				duration: 5
+			};
+		} else {
+			payload = this.processor(payload);
+		}
+
 		setTimeout(function(){
 			this.io.sockets.emit(this.eventName, {
 				name: this.eventName,
 				type: 'midi',
-				data: {
-					note: note,
-					velocity: velocity,
-					duration: 5
-				}
+				data: payload
 			});
 		}.bind(this), delay + delay_random);
 	}.bind(this));
