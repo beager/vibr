@@ -1,4 +1,37 @@
 var channels = {
+	'test': {
+		name: 'Test Channel Z',
+		description: 'Test',
+		technical_info: 'This goes away eventually',
+		transpose: 6,
+		midi: {
+			0: {
+				name: 'user_registration_attempt',
+				scale: 'pentatonic',
+				patch: 92
+			}
+		},
+		impulse_response: './ir/matrix-reverb6.wav'
+	},
+	'infatuation': {
+		name: 'Lovers and Friends',
+		description: 'Euphoric Infatuation for the Digital Nation',
+		technical_info: 'Intensity of like volume in the bottom, and fan mail sprinkled on top.',
+		transpose: 5,
+		midi: {
+			0: {
+				name: 'fan_mail',
+				scale: [0, 4, 5, 7, 11],
+				patch: 10
+			}
+		},
+		synth: {
+			0: {
+				name: 'user_like',
+			}
+		},
+		impulse_response: './ir/matrix-reverb6.wav'
+	},
 	'splunk_plunk': {
 		name: 'Splunk Plunk',
 		description: 'All the Hits. All the Fatals. All the Exceptions. Zero commercials.',
@@ -50,6 +83,25 @@ var channels = {
 			}
 		},
 		impulse_response: './ir/matrix-reverb1.wav'
+	},
+	'sad_derek': {
+		name: 'Lacrimosa alla derekg in D minor',
+		description: 'When users get deleted',
+		technical_info: 'Each cello note is a user who was just deleted. Higher notes are older users. Stronger notes are users who were more engaged (following more blogs). The piano chords represent some of the unfollows that happen on blogs.',
+		transpose: 2,
+		midi: {
+			0: {
+				name: 'soft_delete_user',
+				scale: 'harmonic_minor',
+				patch: 42
+			},
+			1: {
+				name: 'user_unfollow',
+				scale: [0, 3, 7],
+				patch: 0
+			}
+		},
+		impulse_response: './ir/matrix-reverb5.wav'
 	}
 };
 
@@ -60,6 +112,7 @@ $(document).ready(function(){
 		var channel = this.value;
 		if (channel in channels) {
 			switch_channel(channels[channel]);
+			$('table').removeClass('hidden');
 		}
 	});
 });

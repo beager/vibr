@@ -8,19 +8,23 @@ $(document).ready(function(){
 			"acoustic_guitar_nylon",
 			"electric_piano_1",
 			"electric_piano_2",
-			"glockenspiel",
-			"taiko_drum"
+			"pad_5_bowed",
+			"taiko_drum",
+			"music_box",
+			"cello"
 		],
 		callback: function() {
 
 			window.addEventListener("message", function(event) {
 				switch(event.data.type) {
 					case 'midi':
-						if (midi_channel(event.data.name) !== false) playNote(event.data.name, event.data.data);
+						if (midi_channel(event.data.name) !== false) playNote(event.data.name, event.data.data, midi_channel(event.data.name));
 						break;
 					case 'opentsdb':
 						if (synth_channel(event.data.name) !== false) playOpenTSDB(event.data.data);
 						break;
+					case 'synth_control':
+						if (synth_channel(event.data.name) !== false) playSynthControlEvent(event.data.data);
 				}
 			});
 		}
@@ -32,20 +36,27 @@ $(document).ready(function(){
   synth = new MonoSynth(audioContext);
 });
 
+function playSynthControlEvent(data) {
+	if (data.oscillator) synth.setOscillator(data.oscillator);
+	if (data.filterCutoff) synth.setFilterFrequency(data.filterCutoff);
+	if (data.filterResonance) synth.setFilterResonance(data.filterResonance);
+	if (data.note) synth.noteOn(data.note);
+}
+
 var bassNotes = ['C2', 'D2', 'E2', 'G2', 'C3'];
 
 function changeBassNote(note) {
 	note = note || bassNotes[Math.floor(Math.random()*bassNotes.length)];
-	synth.noteSlide(note, 0.02);
+	synth.noteOn(note, 0.02);
 }
 
-function playNote(name, data) {
+function playNote(name, data, channel) {
 	var channel = midi_channel(name);
 	var scale = current_channel.midi[channel].scale || 'major';
 	var pitch = get_note_from_scale(data.note, scale);
 	pitch += current_channel.transpose;
-	MIDI.noteOn(0, pitch, data.velocity, 0);
-	MIDI.noteOff(0, pitch, data.duration);
+	MIDI.noteOn(channel, pitch, data.velocity, 0);
+	MIDI.noteOff(channel, pitch, data.duration);
 }
 
 function playOpenTSDB(data) {

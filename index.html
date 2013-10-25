@@ -16,7 +16,7 @@
 	<script src="src/main.js"></script>
 	<script src="src/channels.js"></script>
 	<script src="src/helpers.js"></script>
-	<script src="lib/MonoSynth.js"></script>
+	<script src="lib/MonoSynth2.js"></script>
 	<link rel="stylesheet" href="main.css" />
 </head>
 <body>
@@ -24,16 +24,16 @@
 	<div class="container">
 		<h1>vibr</h1>
 		<h2>audio metrics</h2>
-		<select name="channels" id="channels" size="9">
-			<option value="">Select a channel:</option>
-			<option value="">-------</option>
-			<option value="splunk_plunk">87.9: Splunk Plunk</option>
-			<option value="andres_tinnitus">88.1: Andres' Tinnitus</option>
-			<option value="user_registration_attempt">88.3: The Register</option>
-			<option value="sexy_search">88.5: Skin Seekers</option>
+		<select name="channels" id="channels" size="7">
+			<option value="splunk_plunk">Splunk Plunk</option>
+			<option value="andres_tinnitus">Andres' Tinnitus</option>
+			<option value="user_registration_attempt">The Register</option>
+			<option value="sexy_search">Skin Seekers</option>
+			<option value="infatuation">Lovers and Friends</option>
+			<option value="sad_derek">Lacrimosa alla derekg in D minor</option>
 		</select>
 		<div id="description">
-			<table>
+			<table class="hidden">
 				<tr>
 					<td>Station:</td>
 					<td id="station_name"></td>
