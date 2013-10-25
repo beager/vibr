@@ -198,8 +198,8 @@ var scales = {
 	pentatonic: [0, 2, 4, 7, 9]
 };
 
-function get_note_from_scale(id, scale) {
-	var thescale = scales[scale];
+function get_note_from_scale(id, thescale) {
+	if (typeof thescale == "string") thescale = scales[thescale];
 	var mod = thescale.length;
 	var oct = Math.floor(id / mod);
 	var pitch = id % mod;

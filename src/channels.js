@@ -1,18 +1,33 @@
 var channels = {
 	'splunk_plunk': {
-		description: 'Plays random notes when web errors happen.',
+		description: 'All the Hits. All the Fatals. All the Exceptions. Zero commercials.',
+		transpose: 2,
 		midi: {
 			0: {
 				name: 'web_errors',
-				scale: 'major'
+				scale: 'major',
+				patch: 4
 			}
-		}
+		},
+		impulse_response: './ir/cardiod-true-stereo-15-8.wav'
+	},
+	'user_registration_attempt': {
+		description: 'The Soothing Sounds of New Tumblr Users!',
+		transpose: -4,
+		midi: {
+			0: {
+				name: 'user_registration_attempt',
+				scale: [0, 2, 4, 7, 9, 11],
+				patch: 4
+			}
+		},
+		impulse_response: './ir/matrix-reverb6.wav'
 	},
 	'andres_tinnitus': {
-		description: 'Plays a frequency that correlates to the number of sampled JS errors in the past 5 minutes.',
+		description: 'Listen to Andres\' Stress Level Rise and Fall.',
 		synth: {
 			0: {
-				name: 'js_errors'
+				name: 'js_errors',
 			}
 		}
 	}
@@ -34,6 +49,10 @@ function switch_channel(channel) {
 	synth.noteOff();
 	current_channel = channel;
 	$('#description').html(current_channel.description);
+	if (current_channel.impulse_response) MIDI.setReverbImpulseResponse(current_channel.impulse_response);
+	for (var i in current_channel.midi) {
+		MIDI.programChange(i, current_channel.midi[i].patch);
+	}
 }
 
 function midi_channel(name) {

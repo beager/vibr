@@ -3,15 +3,19 @@ var synth;
 $(document).ready(function(){
 	MIDI.loadPlugin({
 		soundfontUrl: "./soundfont/",
-		instruments: ["acoustic_grand_piano"],
+		instruments: [
+			"acoustic_grand_piano",
+			"acoustic_guitar_nylon",
+			"electric_piano_1",
+			"electric_piano_2",
+			"glockenspiel"
+		],
 		callback: function() {
-
-			MIDI.setReverbImpulseResponse('./ir/spatialized7.wav');
-
 			function playNote(name, data) {
 				var channel = midi_channel(name);
 				var scale = current_channel.midi[channel].scale || 'major';
 				var pitch = get_note_from_scale(data.note, scale);
+				pitch += current_channel.transpose;
 				MIDI.noteOn(0, pitch, data.velocity, 0);
 				MIDI.noteOff(0, pitch, data.duration);
 			}
