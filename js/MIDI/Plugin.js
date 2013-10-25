@@ -57,6 +57,9 @@ var setPlugin = function(root) {
 		output.send([0xB0 + channel, 0x07, volume]);
 	};
 
+	root.setReverbImpulseResponse = function(url) {
+	};
+
 	root.programChange = function (channel, program) { // change channel instrument
 		output.send([0xC0 + channel, program]);
 	};
@@ -340,6 +343,9 @@ if (window.Audio) (function () {
 		volume = n; //- should be channel specific volume
 	};
 
+	root.setReverbImpulseResponse = function(url) {
+	};
+
 	root.noteOn = function (channel, note, velocity, delay) {
 		var id = note2id[note];
 		if (!notes[id]) return;
@@ -454,6 +460,9 @@ if (window.Audio) (function () {
 
 	root.noteOff = function (channel, note, delay) {
 
+	};
+
+	root.setReverbImpulseResponse = function(url) {
 	};
 
 	root.chordOn = function (channel, chord, velocity, delay) {
