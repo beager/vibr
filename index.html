@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="main.css" />
 </head>
 <body>
-	<iframe src="http://localhost:8080/"></iframe>
+	<iframe id="listener" src="http://localhost:8080/"></iframe>
 	<div class="container">
 		<h1>vibr</h1>
 		<h2>audio metrics</h2>
@@ -31,7 +31,22 @@
 			<option value="andres_tinnitus">88.1: Andres' Tinnitus</option>
 			<option value="user_registration_attempt">88.3: Registration Radio</option>
 		</select>
-		<div id="description"></div>
+		<div id="description">
+			<table>
+				<tr>
+					<td>Station:</td>
+					<td id="station_name"></td>
+				</tr>
+				<tr>
+					<td>Description:</td>
+					<td id="station_description"></td>
+				</tr>
+				<tr>
+					<td>Technical Info:</td>
+					<td id="station_technical_info"></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </body>
 </html>

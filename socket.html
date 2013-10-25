@@ -1,15 +1,22 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  var socket = io.connect('http://localhost:8080');
-  socket.on('web_errors', function (data) {
-    window.parent.postMessage(data, "*");
-  });
+	function postSignal(data) {
+		window.parent.postMessage(data, '*');
+	}
 
-  socket.on('js_errors', function (data) {
-    window.parent.postMessage(data, "*");
-  });
+  	var socket = io.connect('http://localhost:8080');
 
-  socket.on('user_registration_attempt', function (data) {
-    window.parent.postMessage(data, "*");
-  });
+	var prmstr = window.location.search.substr(1);
+	var prmarr = prmstr.split ("&");
+	var params = {};
+
+	for ( var i = 0; i < prmarr.length; i++) {
+	    var tmparr = prmarr[i].split("=");
+	    params[tmparr[0]] = tmparr[1];
+	}
+
+	if ('s' in params) {
+		var signals = params['s'].split(',');
+		for (var i in signals) socket.on(signals[i], postSignal);
+	}
 </script>

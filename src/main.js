@@ -54,3 +54,8 @@ function playOpenTSDB(data) {
 	}
 	changeBassNote(Math.floor(freq_total) * 4);
 }
+
+function listen_to_signals(signals) {
+	var signal_string = signals.join(',');
+	$('#listener').attr('src', 'http://localhost:8080/?r=t&s=' + signal_string);
+}
