@@ -8,6 +8,8 @@ function GiantOctopusTailConsumer(io, options) {
 	this.randomDelay = options.randomDelay || 1000;
 	this.url = options.url;
 
+	this.filter = options.filter || false;
+
 	this.tail = new Tail(this.url);
 
 	this.tail.on("line", function(data) {
@@ -19,6 +21,11 @@ function GiantOctopusTailConsumer(io, options) {
 		var note = Math.floor((Math.random()*20)+20);
 		var velocity = Math.floor((Math.random()*36)+36);
 		var delay_random = Math.floor(Math.random()*this.randomDelay);
+
+		if (this.filter) {
+			var res = this.filter(data);
+			if (!res) return false;
+		}
 
 		setTimeout(function(){
 			this.io.sockets.emit(this.eventName, {

@@ -8,7 +8,8 @@ $(document).ready(function(){
 			"acoustic_guitar_nylon",
 			"electric_piano_1",
 			"electric_piano_2",
-			"glockenspiel"
+			"glockenspiel",
+			"taiko_drum"
 		],
 		callback: function() {
 

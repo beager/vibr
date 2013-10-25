@@ -28,6 +28,17 @@ new GiantOctopusTailConsumer(io, {
 	randomDelay: 30
 });
 
+new GiantOctopusTailConsumer(io, {
+	url: "/Users/bill/scribe/act_search_page/act_search_page_current",
+	eventName: 'sexy_search',
+	randomDelay: 30,
+	filter: function(data) {
+		if (/sex/.test(data)) return true;
+		return false;
+	},
+	randomDelay: 1000
+});
+
 /**
  * OpenTSDB Consumers
  */

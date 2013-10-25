@@ -36,6 +36,20 @@ var channels = {
 				name: 'js_errors',
 			}
 		}
+	},
+	'sexy_search': {
+		name: 'Skin Seekers',
+		description: 'Listening to your lust, 24/7',
+		technical_info: 'Emits a note every time someone searches for "sex"',
+		transpose: 1,
+		midi: {
+			0: {
+				name: 'sexy_search',
+				scale: [0, 5, 7, 10],
+				patch: 116
+			}
+		},
+		impulse_response: './ir/matrix-reverb1.wav'
 	}
 };
 
