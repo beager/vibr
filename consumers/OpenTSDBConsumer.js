@@ -3,6 +3,7 @@ var http = require('http');
 function OpenTSDBConsumer(io, options) {
 	this.io = io;
 	this.metric = options.metric || '';
+	this.eventName = options.eventName;
 	this.aggregator = options.aggregator || 'sum';
 	this.rate = options.rate || true; // default true
 	this.refresh_rate = options.refresh_rate || 10000; // default 10s;
@@ -32,6 +33,8 @@ function OpenTSDBConsumer(io, options) {
 				try {
 					var jsonResponse = JSON.parse(body);
 					this.io.sockets.emit(this.eventName, {
+						name: this.eventName,
+						type: 'opentsdb',
 						data: jsonResponse.data
 					});
 				} catch (e) {

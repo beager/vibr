@@ -2,12 +2,10 @@ Tail = require('tail').Tail;
 
 function TailConsumer(io, options) {
 	this.io = io;
-	this.options = options;
-
-	this.latency = this.options.latency;
-	this.eventName = this.options.eventName;
+	this.latency = options.latency;
+	this.eventName = options.eventName;
 	this.latency = 120000;
-	this.url = this.options.url;
+	this.url = options.url;
 
 	this.tail = new Tail(this.url);
 
@@ -23,9 +21,13 @@ function TailConsumer(io, options) {
 
 		setTimeout(function(){
 			this.io.sockets.emit(this.eventName, {
-				note: note,
-				velocity: velocity,
-				duration: 5
+				name: this.eventName,
+				type: 'midi',
+				data: {
+					note: note,
+					velocity: velocity,
+					duration: 5					
+				}
 			});
 		}.bind(this), delay + delay_random);
 	}.bind(this));

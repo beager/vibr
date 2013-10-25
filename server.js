@@ -16,11 +16,17 @@ app.get('/', function (req, res) {
 TailConsumer = require('./consumers/TailConsumer.js').TailConsumer;
 OpenTSDBConsumer = require('./consumers/OpenTSDBConsumer.js').OpenTSDBConsumer;
 
-webErrors = new TailConsumer(io, {
+/**
+ * Tail Consumers
+ */
+new TailConsumer(io, {
 	url: "/Users/bill/rsyslog/web-errors.log",
-	eventName: 'note'
+	eventName: 'web_errors'
 });
 
+/**
+ * OpenTSDB Consumers
+ */
 new OpenTSDBConsumer(io, {
 	metric: 'js_errors',
 	eventName: 'js_errors'

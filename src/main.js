@@ -3,7 +3,7 @@ var synth;
 $(document).ready(function(){
 	MIDI.loadPlugin({
 		soundfontUrl: "./soundfont/",
-		instrument: "acoustic_grand_piano",
+		instruments: ["acoustic_grand_piano"],
 		callback: function() {
 
 			MIDI.setReverbImpulseResponse('./ir/spatialized7.wav');
@@ -14,8 +14,23 @@ $(document).ready(function(){
 				MIDI.noteOff(0, pitch, data.duration);
 			}
 
+			function playOpenTSDB(data) {
+				var freq_total = 0;
+				for (var i in data) {
+					freq_total += data[i][1];
+				}
+				changeBassNote(Math.floor(freq_total) * 4);
+			}
+
 			window.addEventListener("message", function(event) {
-				playNote(event.data);
+				switch(event.data.type) {
+					case 'midi':
+						if (can_play_note(event.data.name)) playNote(event.data.data);
+						break;
+					case 'opentsdb':
+						if (can_play_synth(event.data.name)) playOpenTSDB(event.data.data);
+						break;
+				}
 			});
 		}
 	});
@@ -24,17 +39,11 @@ $(document).ready(function(){
   audioContext.sampleRate = 44100;
 
   synth = new MonoSynth(audioContext);
-
-  synth.noteOn('C2', 0.05);
-
-  setTimeout(changeBassNote, 12000);
-
 });
 
 var bassNotes = ['C2', 'D2', 'E2', 'G2', 'C3'];
 
-function changeBassNote() {
-	var note = bassNotes[Math.floor(Math.random()*bassNotes.length)];
-	synth.noteSlide(note, 0.05);
-	setTimeout(changeBassNote, 12000);
+function changeBassNote(note) {
+	note = note || bassNotes[Math.floor(Math.random()*bassNotes.length)];
+	synth.noteSlide(note, 0.02);
 }
