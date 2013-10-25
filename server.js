@@ -11,6 +11,7 @@ app.get('/', function (req, res) {
 });
 
 TailConsumer = require('./consumers/TailConsumer.js').TailConsumer;
+GiantOctopusTailConsumer = require('./consumers/GiantOctopusTailConsumer.js').GiantOctopusTailConsumer;
 OpenTSDBConsumer = require('./consumers/OpenTSDBConsumer.js').OpenTSDBConsumer;
 
 /**
@@ -19,6 +20,12 @@ OpenTSDBConsumer = require('./consumers/OpenTSDBConsumer.js').OpenTSDBConsumer;
 new TailConsumer(io, {
 	url: "/Users/bill/rsyslog/web-errors.log",
 	eventName: 'web_errors'
+});
+
+new GiantOctopusTailConsumer(io, {
+	url: "/Users/bill/scribe/user_registration_attempt/user_registration_attempt_current",
+	eventName: 'user_registration_attempt',
+	randomDelay: 30
 });
 
 /**
