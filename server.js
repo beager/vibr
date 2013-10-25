@@ -13,6 +13,7 @@ app.get('/', function (req, res) {
 TailConsumer = require('./consumers/TailConsumer.js').TailConsumer;
 GiantOctopusTailConsumer = require('./consumers/GiantOctopusTailConsumer.js').GiantOctopusTailConsumer;
 OpenTSDBConsumer = require('./consumers/OpenTSDBConsumer.js').OpenTSDBConsumer;
+GrooveConsumer = require('./consumers/GrooveConsumer.js').GrooveConsumer;
 
 /**
  * Tail Consumers
@@ -35,7 +36,9 @@ new GiantOctopusTailConsumer(io, {
 		if (/sex/.test(data)) return true;
 		return false;
 	},
-	randomDelay: 1000
+	randomDelay: 1000,
+	minNote: 20,
+	maxNote: 25
 });
 
 new GiantOctopusTailConsumer(io, {
@@ -48,7 +51,9 @@ new GiantOctopusTailConsumer(io, {
 	},
 	randomDelay: 1000,
 	minVelocity: 10,
-	maxVelocity: 20
+	maxVelocity: 20,
+	minNote: 35,
+	maxNote: 50
 });
 
 new GiantOctopusTailConsumer(io, {
@@ -156,4 +161,8 @@ new OpenTSDBConsumer(io, {
 		data.note = theNote;
 		return data;
 	}
+});
+
+new GrooveConsumer(io, {
+	eventName: 'groove'
 });

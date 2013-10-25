@@ -135,6 +135,7 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 	};
 	var ctx;
 	var convolver;
+	var compressor;
 	var sources = {};
 	var masterVolume = 127;
 	var audioBuffers = {};
@@ -197,7 +198,8 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		request.send();
 	};
 
-	root.noteOn = function (channel, note, velocity, delay) {
+	root.noteOn = function (channel, note, velocity, delay, ir) {
+		ir = ir || false;
 		/// check whether the note exists
 		if (!MIDI.channels[channel]) return;
 		var instrument = MIDI.channels[channel].instrument;
@@ -209,8 +211,13 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		sources[channel + "" + note] = source;
 		source.buffer = audioBuffers[instrument + "" + note];
 
-		source.connect(convolver);
-		convolver.connect(ctx.destination);
+		if (ir) {
+			source.connect(convolver);
+			convolver.connect(compressor);
+		} else {
+			source.connect(compressor);
+		}
+		compressor.connect(ctx.destination);
 		///
 		var gainNode = ctx.createGainNode();
 		var value = (velocity / 127) * (masterVolume / 127) * 2 - 1;
@@ -256,6 +263,10 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		//
 		MIDI.Player.ctx = ctx = new AudioContext();
 		convolver = ctx.createConvolver();
+		compressor = ctx.createDynamicsCompressor();
+		console.log(compressor);
+		compressor.threshold.value = -70;
+		compressor.ratio.value = 20;
 		///
 		var urlList = [];
 		var keyToNote = MIDI.keyToNote;

@@ -1,28 +1,20 @@
 var channels = {
-	'test': {
-		name: 'Test Channel Z',
-		description: 'Test',
-		technical_info: 'This goes away eventually',
-		transpose: 6,
-		midi: {
-			0: {
-				name: 'user_registration_attempt',
-				scale: 'pentatonic',
-				patch: 92
-			}
-		},
-		impulse_response: './ir/matrix-reverb6.wav'
-	},
 	'infatuation': {
 		name: 'Lovers and Friends',
-		description: 'Euphoric Infatuation for the Digital Nation',
-		technical_info: 'Intensity of like volume in the bottom, and fan mail sprinkled on top.',
+		description: 'Warm-fuzzy central.',
+		technical_info: 'The bass note\'s intensity measures user_like volume, and fan_mail actions are sprinkled on top.',
 		transpose: 5,
 		midi: {
 			0: {
 				name: 'fan_mail',
 				scale: [0, 4, 5, 7, 11],
-				patch: 10
+				patch: 9,
+				ir: true
+			},
+			1: {
+				name: 'groove',
+				scale: 'chromatic',
+				patch: 116
 			}
 		},
 		synth: {
@@ -30,12 +22,12 @@ var channels = {
 				name: 'user_like',
 			}
 		},
-		impulse_response: './ir/matrix-reverb6.wav'
+		impulse_response: './ir/matrix-reverb1.wav'
 	},
 	'splunk_plunk': {
 		name: 'Splunk Plunk',
-		description: 'All the Hits. All the Fatals. All the Exceptions. Zero commercials.',
-		technical_info: 'Each note corresponds to an error entry in web-errors.log. There is a 2 minute delay.',
+		description: 'All the Hits, Fatals, and Exceptions. Zero commercials.',
+		technical_info: 'Each note corresponds to an error entry in web-errors.log.',
 		transpose: 2,
 		midi: {
 			0: {
@@ -48,8 +40,8 @@ var channels = {
 	},
 	'user_registration_attempt': {
 		name: 'The Register',
-		description: 'The Soothing Sounds of New Tumblr Users!',
-		technical_info: 'Each note corresponds to one successful new user registration. There is a short delay.',
+		description: 'The Soothing Sounds of New Tumblr Users',
+		technical_info: 'Each note corresponds to one successful new user registration.',
 		transpose: -4,
 		midi: {
 			0: {
@@ -62,7 +54,7 @@ var channels = {
 	},
 	'andres_tinnitus': {
 		name: 'Andres\' Tinnitus',
-		technical_info: 'The frequency of the oscillator is 3x the number of samples JS errors over a 5 minute period.',
+		technical_info: 'The frequency of the oscillator\'s filter corresponds to the number of sampled JS errors over a 5 minute period.',
 		description: 'Listen to Andres\' Stress Level Rise and Fall.',
 		synth: {
 			0: {
@@ -73,7 +65,7 @@ var channels = {
 	'sexy_search': {
 		name: 'Skin Seekers',
 		description: 'Listening to your lust, 24/7',
-		technical_info: 'Emits a note every time someone searches for "sex"',
+		technical_info: 'Emits a primal drum beat every time someone searches for "sex" on Tumblr.',
 		transpose: 1,
 		midi: {
 			0: {
@@ -85,9 +77,9 @@ var channels = {
 		impulse_response: './ir/matrix-reverb1.wav'
 	},
 	'sad_derek': {
-		name: 'Lacrimosa alla derekg in D minor',
-		description: 'When users get deleted',
-		technical_info: 'Each cello note is a user who was just deleted. Higher notes are older users. Stronger notes are users who were more engaged (following more blogs). The piano chords represent some of the unfollows that happen on blogs.',
+		name: '<em>Lacrimosa alla derekg</em> in D minor',
+		description: 'The sadness of unfollowing and deletion brought to life',
+		technical_info: 'Each cello note represents a user who has just deleted their account. Higher notes are older users. Stronger notes are users who were more engaged (following more blogs). The piano chords represent some of the unfollows that happen to blogs.',
 		transpose: 2,
 		midi: {
 			0: {
@@ -102,6 +94,20 @@ var channels = {
 			}
 		},
 		impulse_response: './ir/matrix-reverb5.wav'
+	},
+	'groove': {
+		name: 'Groove test',
+		description: '',
+		technical_info: '',
+		transpose: 0,
+		midi: {
+			0: {
+				name: 'groove',
+				scale: 'chromatic',
+				patch: 117
+			}
+		},
+		impulse_response: './ir/matrix-reverb1.wav'
 	}
 };
 

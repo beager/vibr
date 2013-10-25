@@ -22,31 +22,26 @@
 <body>
 	<iframe id="listener" src="http://localhost:8080/"></iframe>
 	<div class="container">
-		<h1>vibr</h1>
-		<h2>audio metrics</h2>
-		<select name="channels" id="channels" size="7">
-			<option value="splunk_plunk">Splunk Plunk</option>
-			<option value="andres_tinnitus">Andres' Tinnitus</option>
-			<option value="user_registration_attempt">The Register</option>
-			<option value="sexy_search">Skin Seekers</option>
-			<option value="infatuation">Lovers and Friends</option>
-			<option value="sad_derek">Lacrimosa alla derekg in D minor</option>
-		</select>
-		<div id="description">
-			<table class="hidden">
-				<tr>
-					<td>Station:</td>
-					<td id="station_name"></td>
-				</tr>
-				<tr>
-					<td>Description:</td>
-					<td id="station_description"></td>
-				</tr>
-				<tr>
-					<td>Technical Info:</td>
-					<td id="station_technical_info"></td>
-				</tr>
-			</table>
+		<div class="innards">
+			<div class="half">
+				<h1>vibr</h1>
+				<h2>audio metrics</h2>
+				<select name="channels" id="channels" size="7">
+					<option value="splunk_plunk">Splunk Plunk</option>
+					<option value="andres_tinnitus">Andres' Tinnitus</option>
+					<option value="user_registration_attempt">The Register</option>
+					<option value="sexy_search">Skin Seekers</option>
+					<option value="infatuation">Lovers and Friends</option>
+					<option value="sad_derek">Lacrimosa alla derekg in D minor</option>
+				</select>
+			</div>
+			<div class="half">
+				<div id="description">
+					<h2 id="station_name" class="strong"></h2>
+					<h3 id="station_description"></h3>
+					<p class="left" id="station_technical_info"></p>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

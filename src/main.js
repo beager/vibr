@@ -11,6 +11,7 @@ $(document).ready(function(){
 			"pad_5_bowed",
 			"taiko_drum",
 			"music_box",
+			"glockenspiel",
 			"cello"
 		],
 		callback: function() {
@@ -53,9 +54,10 @@ function changeBassNote(note) {
 function playNote(name, data, channel) {
 	var channel = midi_channel(name);
 	var scale = current_channel.midi[channel].scale || 'major';
+	var ir = current_channel.midi[channel].ir || false;
 	var pitch = get_note_from_scale(data.note, scale);
 	pitch += current_channel.transpose;
-	MIDI.noteOn(channel, pitch, data.velocity, 0);
+	MIDI.noteOn(channel, pitch, data.velocity, 0, ir);
 	MIDI.noteOff(channel, pitch, data.duration);
 }
 

@@ -11,7 +11,7 @@ body {
 	padding: 24px;
 	text-align: center;
 	margin: 2em auto;
-	width: 450px;
+	width: 1080px;
 }
 
 iframe {
@@ -34,10 +34,38 @@ h2 {
 }
 
 select {
-	width: 400px;
+	width: 440px;
 	font-size: 24px;
 }
 
 .hidden {
 	visibility: hidden;
+}
+
+.innards {
+	height: 440px;
+	width: 1080px;
+}
+
+.half {
+	float:left;
+	margin: 10px;
+	width: 520px;
+}
+
+table {
+	font-size: 24px;
+	padding-top: 3em;
+}
+
+#description {
+	padding-top: 1em;
+}
+
+.left {
+	text-align: left;
+}
+
+.strong {
+	font-weight: bold;
 }
