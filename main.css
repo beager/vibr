@@ -1,3 +1,21 @@
+body {
+	font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+
 iframe {
 	display: none;
+}
+
+h1 {
+	color: #888;
+	font-size: 88px;
+	margin: 0;
+	padding: 0;
+}
+
+h2 {
+	color: #888;
+	font-size: 44px;
+	margin:0;
+	padding: 0;
 }
