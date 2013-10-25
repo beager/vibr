@@ -1,6 +1,6 @@
 Tail = require('tail').Tail;
 
-function TailConsumer(io, options) {
+function GiantOctopusTailConsumer(io, options) {
 	this.io = io;
 	this.latency = options.latency;
 	this.eventName = options.eventName;
@@ -11,9 +11,9 @@ function TailConsumer(io, options) {
 	this.tail = new Tail(this.url);
 
 	this.tail.on("line", function(data) {
-		var linedata = data.split(" ");
+		var linedata = data.split("\t");
 		var time = new Date().getTime();
-		var log_time = Date.parse(linedata[0]);
+		var log_time = linedata[0] * 1000;
 		var delay = time - log_time;
 		if (delay < 0 || delay > this.latency) return;
 		var note = Math.floor((Math.random()*20)+20);
@@ -27,11 +27,11 @@ function TailConsumer(io, options) {
 				data: {
 					note: note,
 					velocity: velocity,
-					duration: 5					
+					duration: 5
 				}
 			});
 		}.bind(this), delay + delay_random);
 	}.bind(this));
 }
 
-exports.TailConsumer = TailConsumer;
+exports.GiantOctopusTailConsumer = GiantOctopusTailConsumer;
