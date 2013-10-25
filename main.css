@@ -35,4 +35,9 @@ h2 {
 
 select {
 	width: 400px;
+	font-size: 24px;
+}
+
+.hidden {
+	visibility: hidden;
 }
