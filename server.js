@@ -1,11 +1,8 @@
-var express = require('express')
-  , http = require('http');
+var express = require('express'), http = require('http');
 
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
-
-var latency = 120000; // 120s latency for now
 
 server.listen(8080);
 

@@ -8,8 +8,10 @@ $(document).ready(function(){
 
 			MIDI.setReverbImpulseResponse('./ir/spatialized7.wav');
 
-			function playNote(data) {
-				var pitch = get_note_from_scale(data.note, 'pentatonic');
+			function playNote(name, data) {
+				var channel = midi_channel(name);
+				var scale = current_channel.midi[channel].scale || 'major';
+				var pitch = get_note_from_scale(data.note, scale);
 				MIDI.noteOn(0, pitch, data.velocity, 0);
 				MIDI.noteOff(0, pitch, data.duration);
 			}
@@ -25,10 +27,10 @@ $(document).ready(function(){
 			window.addEventListener("message", function(event) {
 				switch(event.data.type) {
 					case 'midi':
-						if (can_play_note(event.data.name)) playNote(event.data.data);
+						if (midi_channel(event.data.name) !== false) playNote(event.data.name, event.data.data);
 						break;
 					case 'opentsdb':
-						if (can_play_synth(event.data.name)) playOpenTSDB(event.data.data);
+						if (synth_channel(event.data.name) !== false) playOpenTSDB(event.data.data);
 						break;
 				}
 			});

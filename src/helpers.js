@@ -193,8 +193,8 @@ var  G10 = 127;
 var scales = {
 	major: [0, 2, 4, 5, 7, 9, 11],
 	minor: [0, 2, 3, 5, 7, 8, 10],
-	minor_harmonic: [0, 2, 3, 5, 7, 8, 11],
-	minor_melodic: [0, 2, 3, 5, 7, 9, 11],
+	harmonic_minor: [0, 2, 3, 5, 7, 8, 11],
+	melodic_minor: [0, 2, 3, 5, 7, 9, 11],
 	pentatonic: [0, 2, 4, 7, 9]
 };
 

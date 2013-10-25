@@ -3,7 +3,8 @@ var channels = {
 		description: 'Plays random notes when web errors happen.',
 		midi: {
 			0: {
-				name: 'web_errors'
+				name: 'web_errors',
+				scale: 'major'
 			}
 		}
 	},
@@ -35,19 +36,19 @@ function switch_channel(channel) {
 	$('#description').html(current_channel.description);
 }
 
-function can_play_note(name) {
+function midi_channel(name) {
 	for (var i in current_channel.midi) {
 		if (current_channel.midi[i].name === name) {
-			return true;
+			return i;
 		}
 	}
 	return false;
 }
 
-function can_play_synth(name) {
+function synth_channel(name) {
 	for (var i in current_channel.synth) {
 		if (current_channel.synth[i].name === name) {
-			return true;
+			return i;
 		}
 	}
 	return false;
