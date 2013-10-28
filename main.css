@@ -3,6 +3,14 @@ body {
 	background-size: cover;
 	background-image: url('images/skyline.jpg');
 	font-family: 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+:focus { outline: none;}
+
+option:active {
+	background:green;
+	color: white;
 }
 
 .container {
@@ -45,6 +53,9 @@ h2 {
 select {
 	width: 440px;
 	font-size: 24px;
+	background: transparent;
+	border: 0 none;
+	color: green;
 }
 
 .hidden {
@@ -77,4 +88,8 @@ table {
 
 .strong {
 	font-weight: bold;
+}
+
+#station_name {
+	color: green;
 }

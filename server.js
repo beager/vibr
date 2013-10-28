@@ -2,7 +2,7 @@ var express = require('express'), http = require('http');
 
 var app = express();
 var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server, { log: false });
 
 server.listen(8080);
 
@@ -37,6 +37,8 @@ new GiantOctopusTailConsumer(io, {
 		return false;
 	},
 	randomDelay: 1000,
+	minVelocity: 90,
+	maxVelocity: 127,
 	minNote: 20,
 	maxNote: 25
 });
@@ -126,7 +128,7 @@ new OpenTSDBConsumer(io, {
 		var data = {};
 		data.oscillator = 1;
 		data.filterCutoff = fc;
-		data.filterResonance = 0.1;
+		data.filterResonance = 0.5;
 		data.volume = 0.2;
 		data.note = "A2";
 		return data;

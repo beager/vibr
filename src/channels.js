@@ -1,7 +1,7 @@
 var channels = {
 	'infatuation': {
 		name: 'Lovers and Friends',
-		description: 'Warm-fuzzy central.',
+		description: 'Everything was likes and fanmail, and nothing hurt.',
 		technical_info: 'The bass note\'s intensity measures user_like volume, and fan_mail actions are sprinkled on top.',
 		transpose: 5,
 		midi: {
@@ -65,7 +65,7 @@ var channels = {
 		}
 	},
 	'sexy_search': {
-		name: 'Skin Seekers',
+		name: 'SkinSearch',
 		description: 'Listening to your lust, 24/7',
 		technical_info: 'Emits a primal drum beat every time someone searches for "sex" on Tumblr.',
 		transpose: 1,
